@@ -71,7 +71,7 @@ app.use(function(req, res) {
         else {
             res.render('layout', {
                 content: pageContent,
-                path: req.path,
+                path: req.originalUrl,
                 bowerDependencies: bowerConfig.dependencies
             });
         }

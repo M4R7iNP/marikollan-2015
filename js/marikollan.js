@@ -78,8 +78,8 @@ require(['jquery'], function($) {
 
                 //Load social plugins
                 if ($('meta[name="facebookComments"]', $content).length) {
-                    $('#content').append('<fb:comments id="fb-c" href="http://2015.marikollan.no/'+url+'" num_posts="2" width="'+$content.width()+'"></fb:comments>');
                     require(['facebook'], function(FB) {
+                        Marikollan.appendCommentSection(url);
                         FB.XFBML.parse();
                     });
                 }
@@ -101,8 +101,18 @@ require(['jquery'], function($) {
                 version    : 'v2.4'
             });
 
+            if ($('#content meta[name="facebookComments"]').length)
+                Marikollan.appendCommentSection();
+
             FB.XFBML.parse();
         });
+    };
+
+    Marikollan.appendCommentSection = function(pathname) {
+        if (!pathname)
+            pathname = location.pathname;
+
+        $('#content').append('<div class="fb-comments-container text-center"><div class="fb-comments" data-href="http://2015.marikollan.no'+ pathname +'" num_posts="5"></div></div>');
     };
 
     $(Marikollan.init);

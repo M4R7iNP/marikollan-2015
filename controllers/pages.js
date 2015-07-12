@@ -61,6 +61,7 @@ module.exports.pagesHandler = function (req, res, next) {
             } else {
                 res.render('layout', {
                     content: pageContent,
+                    path: req.originalUrl,
                     metaTags: metaTags || {},
                     bower: bowerConfig.dependencies
                 });
