@@ -39,88 +39,42 @@ nunjucksEnv.addFilter('nl2br', function(str) {
     return str.replace(/(\n\r|\r\n|\r|\n)/g, '<br/>');
 });
 
+// controllers
+var pagesController = require('./controllers/pages');
+
 // static routes
 // these are set in nginx in prod
 if (!app.production) {
-    app.get('/pages/', express.static(__dirname + 'public/pages'));
     app.use('/js/', express.static(__dirname + '/js'));
     app.use('/js/lib/', express.static(__dirname + '/public/js/lib'));
     app.use('/css/', express.static(__dirname + '/public/css'));
     app.use('/fonts/', express.static(__dirname + '/public/fonts'));
     app.get('/favicon.png', express.static(__dirname + '/public'));
+    app.use('/pages', pagesController.pagesHandler);
 }
 
-// page titles are saved as meta tags in file content
-var metaTagRegex = /<meta\s+name="([^"]+)"\s+value="([^"]+)"\s*\/?>/,
-    metaTagRegexGlobal = new RegExp(metaTagRegex.source, 'g');
-
 // main page route
-app.use('/', function(req, res, next) {
-    if (req.path.indexOf('..') !== -1)
-        return next(new Error('Invalid path'));
-
-    var fsPath = Path.join(__dirname, 'public/pages', req.path);
-    if (fsPath.substr(-1) == '/')
-        fsPath += 'index.html';
-    else if (fsPath.substr(-5) != '.html')
-        fsPath += '.html';
-
-    Fs.stat(fsPath, function(err, stat) {
-        if (err) {
-            if (err.code == 'ENOENT') {
-                var checkPath = Path.join(__dirname, 'public/pages', req.path);
-
-                Fs.stat(checkPath, function(err, checkStat) {
-                    if (checkStat && checkStat.isDirectory())
-                        return res.redirect(res.path + '/');
-                    else
-                        return next();
-                });
-
-                return;
-            }
-
-            return next(err);
-        }
-
-        if (stat.isDirectory() && false)
-            return res.redirect(req.path + '/');
-
-        Fs.readFile(fsPath, {encoding: 'utf8'}, function(err, pageContent) {
-            if (err)
-                return next(err);
-
-            var metaTags = pageContent.match(metaTagRegexGlobal);
-
-            if (metaTags) {
-                metaTags = metaTags.reduce(function(carry, item) {
-                    var metaTag = metaTagRegex.exec(item);
-                    carry[metaTag[1]] = metaTag[2];
-                    return carry;
-                }, {});
-            }
-
-            res.render('layout', {
-                content: pageContent,
-                metaTags: metaTags || {},
-                bower: bowerConfig.dependencies
-            });
-        });
-    });
-});
+app.use('/', pagesController.pagesHandler);
 
 // 404 handler
 app.use(function(req, res) {
     res.status(404);
-    app.render('404', {url: req.url}, function(err, pageContent) {
+    app.render('404', {path: req.originalUrl}, function(err, pageContent) {
         if (err)
             console.error(err);
 
-        res.render('layout', {
-            content: pageContent,
-            path: req.path,
-            bowerDependencies: bowerConfig.dependencies
-        });
+        res.vary('X-Requested-With');
+        if (req.xhr) {
+            res.send(pageContent);
+            res.end();
+        }
+        else {
+            res.render('layout', {
+                content: pageContent,
+                path: req.path,
+                bowerDependencies: bowerConfig.dependencies
+            });
+        }
     });
 });
 
