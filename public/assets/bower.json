@@ -1,0 +1,24 @@
+{
+  "name": "marikollan-2015",
+  "version": "0.0.1",
+  "authors": [
+    "Martin Pedersen <martin@m4r7.in>"
+  ],
+  "main": "index.js",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "Public",
+  "homepage": "http://marikollan.no/",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "requirejs": "~2.1.18"
+  }
+}

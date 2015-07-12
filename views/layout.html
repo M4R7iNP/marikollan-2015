@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="no">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+
+        <title>{{ metaTags.title + ' - ' if metaTags and metaTags.title}}Marikollan 2015</title>
+        <link rel="stylesheet" href="{{'/css/marikollan.css' | asset_url}}">
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Stardos+Stencil:400,700'>
+        <script data-main="marikollan" src="/js/lib/require.min.js?_={{bower.requirejs}}"></script>
+        <script>
+            require.config({
+                paths: {
+                    jquery: '/js/lib/jquery.min.js?_={{bower.jquery}}',
+                    marikollan: '{{"/js/marikollan.js" | asset_url}}'
+                },
+                shim: {
+                    jquery: 'jQuery'
+                }
+            });
+        </script>
+
+        <link rel="shortcut icon" href="/favicon.png"/>
+        <meta property="fb:app_id" content="369971899738545"/>
+        <meta property="og:title" content="Marikollan"/>
+        <meta property="og:image" content="http://img.marikollan.no/Marikollan_padded.png"/>
+        <meta name="description" property="og:description" content="MarikolLAN er et rusfritt arrangement i Rælingen der datainteressert ungdom møtes og deler sine interesser." />
+        <meta property="og:type" content="event" />
+        <meta property="event:title" content="Marikollan" />
+        <meta property="event:country-name" content="Norway" />
+        <meta property="event:address" content="Marikollen Kultursal, Rælingen" />
+        <meta property="event:start_time" content="2015-10-30T17:30" />
+    </head>
+    <body>
+
+        <div class="header-container">
+            <div class="header container">
+                <a href="/" id="logo">
+                    <img src="http://img.marikollan.no/Good_Smily.svg" width="90" height="75" alt="Marikollan">
+                    <span class="logo-title">Marikol<span class="black">lan</span> 2015</span>
+                </a>
+            </div>
+        </div>
+
+        <div id="menu" class="navbar-inverse">
+            <div class="container">
+                <div class="row">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="menu-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/"><span class="glyphicon glyphicon-home glyphicon-white"></span> Forside</a></li>
+                            <li>
+                                <a href="/info/"><span class="glyphicon glyphicon-info-sign glyphicon-white"></span> Informasjon</a>
+                                <div class="submenu">
+                                    <a href="/info/faq">FAQ</a>
+                                    <a href="/info/regler">Reglement</a>
+                                    <a href="/info/pakkeliste">Pakkeliste</a>
+                                    <a href="/info/forforeldre">For foreldre</a>
+                                    <a href="/info/samtykkeskjema">Samtykkeskjema</a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="/konkurranser/"><span class="glyphicon glyphicon-flag glyphicon-white"></span> Konkurranser</a>
+                                <div class="submenu">
+                                    <a href="/konkurranser/hearthstone">Hearthstone</a>
+                                    <a href="/konkurranser/lol">League of Legends</a>
+                                    <a href="/konkurranser/fifa">FIFA 15</a>
+                                    <a href="/konkurranser/minecraft">Minecraft</a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="/hvem-er-vi"><span class="glyphicon glyphicon-user glyphicon-white"></span> Hvem er vi?</a>
+                            </li>
+                            <li>
+                                <a href="/kontakt"><span class="glyphicon glyphicon-envelope glyphicon-white"></span> Kontakt</a>
+                                <div class="submenu">
+                                    <a href="/pressekontakt">Presse</a>
+                                </div>
+                            </li>
+                            <!--<li><a href="/stream"><span class="glyphicon glyphicon-film glyphicon-white"></span> Video</li>-->
+                        </ul>
+                        <a href="https://www.geekevents.org/event/70/" class="navbar-right geekevents-tickets hide">
+                            <span class="glyphicon glyphicon-tag"></span>&nbsp;<span id="tickets">Billetter</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container content-container">
+            <div class="row">
+                <div id="content" class="col-sm-9">
+{{content | safe}}
+                </div>
+                <div id="sponsors" class="col-sm-3">
+                    <h4>Samarbeids&shy;partnere</h4>
+                    <a href="http://ralingen.kommune.no/"><img src="http://img.marikollan.no/sponsorer/Ralingenkommune.png"/></a>
+                    <h4 class="h5"><b>Vi trenger sponsorer!</b></h4>
+                    <p>
+                        Vil du være med å sponse arrangementet vårt og få en sponsorplass her? <a href="/kontakt-oss">Kontakt oss</a>!
+                    </p>
+                    <div class="fb-like-box" id="fb-likebox" data-href="https://www.facebook.com/marikollan" data-width="250" data-height="300" data-show-faces="true" data-colorscheme="light" data-stream="false" data-header="true" data-show-border="true"></div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
