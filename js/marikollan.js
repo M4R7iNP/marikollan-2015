@@ -7,6 +7,9 @@ require(['jquery'], function($) {
         // TODO: Put much magic in here
 
         $(document).on('click', 'a[href^="/"]:not([data-toggle])', Marikollan.clickHandler);
+        $('a[href^="http"]').attr('target', '_blank');
+
+        Marikollan.initFacebook();
 
         console.log('https://github.com/M4R7iNP/marikollan-2015');
     };
@@ -73,12 +76,13 @@ require(['jquery'], function($) {
                     }
                 }
 
-                if ($('meta[name="facebookComments"]', $content).length)
-                    $('#content').append('<fb:comments id="fb-c" href="http://2015.marikollan.no/'+url+'" num_posts="2" width="'+$content.width()+'"></fb:comments>');
-
                 //Load social plugins
-                if(typeof FB != 'undefined')
-                    FB.XFBML.parse();
+                if ($('meta[name="facebookComments"]', $content).length) {
+                    $('#content').append('<fb:comments id="fb-c" href="http://2015.marikollan.no/'+url+'" num_posts="2" width="'+$content.width()+'"></fb:comments>');
+                    require(['facebook'], function(FB) {
+                        FB.XFBML.parse();
+                    });
+                }
                 if(typeof twttr != 'undefined')
                     twttr.widgets.load();
 
@@ -87,6 +91,17 @@ require(['jquery'], function($) {
                 if(typeof ga != 'undefined')
                     ga('send', 'pageview', url);
             }
+        });
+    };
+
+    Marikollan.initFacebook = function() {
+        require(['facebook'], function(FB) {
+            FB.init({
+                appId      : '369971899738545',
+                version    : 'v2.4'
+            });
+
+            FB.XFBML.parse();
         });
     };
 

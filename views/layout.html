@@ -13,10 +13,16 @@
             require.config({
                 paths: {
                     jquery: '/js/lib/jquery.min.js?_={{bower.jquery}}',
-                    marikollan: '{{"/js/marikollan.js" | asset_url}}'
+                    marikollan: '{{"/js/marikollan.js" | asset_url}}',
+                    facebook: '//connect.facebook.net/en_US/sdk'
                 },
                 shim: {
-                    jquery: 'jQuery'
+                    facebook: {
+                        exports: 'FB'
+                    },
+                    jquery: {
+                        exports: 'jQuery'
+                    }
                 }
             });
         </script>
@@ -33,6 +39,7 @@
         <meta property="event:start_time" content="2015-10-30T17:30" />
     </head>
     <body>
+        <div id="fb-root"></div>
 
         <div class="header-container">
             <div class="header container">
@@ -108,7 +115,14 @@
                     <p>
                         Vil du være med å sponse arrangementet vårt og få en sponsorplass her? <a href="/kontakt-oss">Kontakt oss</a>!
                     </p>
-                    <div class="fb-like-box" id="fb-likebox" data-href="https://www.facebook.com/marikollan" data-width="250" data-height="300" data-show-faces="true" data-colorscheme="light" data-stream="false" data-header="true" data-show-border="true"></div>
+                    <br>
+                    <div class="fb-page" data-href="https://www.facebook.com/marikollan" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false">
+                        <div class="fb-xfbml-parse-ignore">
+                            <blockquote cite="https://www.facebook.com/marikollan">
+                                <a href="https://www.facebook.com/marikollan">MarikolLAN</a>
+                            </blockquote>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
