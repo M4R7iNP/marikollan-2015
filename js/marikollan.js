@@ -11,7 +11,10 @@ require(['jquery'], function($) {
 
         Marikollan.initFacebook();
 
-        console.log('https://github.com/M4R7iNP/marikollan-2015');
+        if (location.pathname == '/')
+            Marikollan.timeCountdown();
+
+        console.log('Er du er røver på HTML, CSS og Javascript? Bli med da vel! https://github.com/M4R7iNP/marikollan-2015');
     };
 
     Marikollan.clickHandler = function(ev) {
@@ -38,19 +41,26 @@ require(['jquery'], function($) {
         $.ajax({
             url: '/pages' + url,
             dataType: 'html',
-            error: function(a){
+            error: function(a) {
                 $("#content").html(a.responseText);
                 document.title = defaultTitle;
             },
-            complete: function(){
+            complete: function() {
                 document.body.classList.remove('ajax-pending');
 
                 var header = $('.header').first();
-                if($(window).scrollTop() >= header.height()) //TODO: improve this
+                if ($(window).scrollTop() >= header.height()) //TODO: improve this
                     $('html, body').animate({scrollTop: header.height() + 'px'}, 'fast');
 
-                if(history.pushState && !opts.noPush)
+                if (history.pushState && !opts.noPush)
                     history.pushState(false, false, url);
+
+                if (url == '/')
+                    Marikollan.timeCountdown();
+                else if (countdownInterval) {
+                    countdownInterval = clearInterval(countdownInterval);
+                    $('.countdown-container').addClass('hide');
+                }
             },
             success: function(html, b, c) {
                 var $content = $('#content');
@@ -66,7 +76,7 @@ require(['jquery'], function($) {
                 if (!$('meta[hideTimestamp]', $content).length) {
                     var date = new Date(c.getResponseHeader('Last-Modified'));
 
-                    if (date.getFullYear() != 1970) {
+                    if (date.getTime() > 0) {
                         $content.append(
                             $('<p/>')
                             .attr('id', 'lastedit')
@@ -83,12 +93,12 @@ require(['jquery'], function($) {
                         FB.XFBML.parse();
                     });
                 }
-                if(typeof twttr != 'undefined')
+                if(typeof window.twttr == 'object')
                     twttr.widgets.load();
 
                 $('a[href^="http"]', $content).attr('target','_blank');
 
-                if(typeof ga != 'undefined')
+                if(typeof window.ga == 'function')
                     ga('send', 'pageview', url);
             }
         });
@@ -113,6 +123,47 @@ require(['jquery'], function($) {
             pathname = location.pathname;
 
         $('#content').append('<div class="fb-comments-container text-center"><div class="fb-comments" data-href="http://2015.marikollan.no'+ pathname +'" num_posts="5"></div></div>');
+    };
+
+    var countdownInterval;
+    Marikollan.timeCountdown = function() {
+        var countdownElm = document.getElementById('time-countdown'),
+            marikollanTime = new Date('2015-10-30T18:00:00+0200');
+
+        document.querySelector('.countdown-container').classList.remove('hide');
+
+        function updateCountdown() {
+            if (!countdownElm)
+                clearInterval(interval);
+
+            var now = new Date(),
+                timeDiff = (marikollanTime.getTime() - now.getTime())/1000 - (now.getTimezoneOffset() - marikollanTime.getTimezoneOffset())*60;
+
+            if (timeDiff < 0) {
+                countdownElm.textContent = 'Marikollan! <3';
+                return;
+            }
+
+            var weeks   = Math.floor(timeDiff/60/60/24/7),
+                days    = Math.floor(timeDiff/60/60/24 - weeks*7),
+                hours   = Math.floor(timeDiff/60/60 - weeks*7*24 - days*24),
+                minutes = Math.floor(timeDiff/60 - weeks*7*24*60 - days*24*60 - hours*60);
+                seconds = Math.floor(timeDiff - weeks*7*24*60*60 - days*24*60*60 - hours*60*60 - minutes*60);
+
+            countdownElm.querySelector('.weeks').textContent = weeks;
+            countdownElm.querySelector('.days').textContent = days;
+            countdownElm.querySelector('.hours').textContent = hours;
+            countdownElm.querySelector('.minutes').textContent = minutes;
+            countdownElm.querySelector('.seconds').textContent = seconds;
+
+            countdownElm.querySelector('.weeks-plural').classList[weeks == 1 ? 'add' : 'remove']('hidden');
+            countdownElm.querySelector('.days-plural').classList[days == 1 ? 'add' : 'remove']('hidden');
+            countdownElm.querySelector('.hours-plural').classList[hours == 1 ? 'add' : 'remove']('hidden');
+            countdownElm.querySelector('.minutes-plural').classList[minutes == 1 ? 'add' : 'remove']('hidden');
+            countdownElm.querySelector('.seconds-plural').classList[seconds == 1 ? 'add' : 'remove']('hidden');
+        }
+        updateCountdown();
+        countdownInterval = setInterval(updateCountdown, 1000);
     };
 
     $(Marikollan.init);

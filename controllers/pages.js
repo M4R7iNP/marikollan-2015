@@ -34,9 +34,6 @@ module.exports.pagesHandler = function (req, res, next) {
             return next(err);
         }
 
-        if (stat.isDirectory() && false)
-            return res.redirect(req.path + '/');
-
         Fs.readFile(fsPath, {encoding: 'utf8'}, function(err, pageContent) {
             if (err)
                 return next(err);

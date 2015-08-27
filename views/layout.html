@@ -47,7 +47,7 @@
         <div class="header-container">
             <div class="header container">
                 <a href="/" id="logo">
-                    <img src="http://img.marikollan.no/Good_Smily.svg" width="90" height="75" alt="Marikollan">
+                    <img src="http://img.marikollan.no/marikollan_2015_logo.svg" width="90" height="76" alt="Marikollan">
                     <span class="logo-title">Marikol<span class="black">lan</span> 2015</span>
                 </a>
             </div>
@@ -102,13 +102,28 @@
 
         <div class="container content-container">
             <div class="row">
-                <div id="content" class="col-sm-9">
+                <div class="col-sm-9">
+                    <div class="countdown-container hide">
+                        <div class="alert alert-info fade in">
+                            <h4 id="time-countdown">
+                                Det er
+                                <span class="weeks">0</span> uke<span class="weeks-plural">r</span>,
+                                <span class="days">0</span> dag<span class="days-plural">er</span>,
+                                <span class="hours">0</span> time<span class="hours-plural">r</span>,
+                                <span class="minutes">0</span> minutt<span class="minutes-plural">er</span> og
+                                <span class="seconds">0</span> sekund<span class="seconds-plural">er</span>
+                                til Marikollan!
+                            </h4>
+                        </div>
+                    </div>
+                    <div id="content">
 {{content | safe}}
+                    </div>
                 </div>
                 <div id="sponsors" class="col-sm-3">
-                    <h4>Samarbeids&shy;partnere</h4>
+                    <h3>Samarbeids&shy;partnere</h3>
                     <a href="http://ralingen.kommune.no/"><img src="http://img.marikollan.no/sponsorer/Ralingenkommune.png"/></a>
-                    <h4 class="h5"><b>Vi trenger sponsorer!</b></h4>
+                    <h4>Vi trenger sponsorer!</h4>
                     <p>
                         Vil du være med å sponse arrangementet vårt og få en sponsorplass her? <a href="/kontakt-oss">Kontakt oss</a>!
                     </p>
@@ -121,6 +136,14 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="footer-container">
+            <div class="footer container">
+                <p class="text-center">
+                    <br>
+                </p>
             </div>
         </div>
 

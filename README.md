@@ -11,7 +11,7 @@ http://mlan2015.m4r7.in/
 
 Gulp and Bower must be installed after Node and can be installed with `sudo npm install -g bower gulp`.
 
-## Magic sauce
+## Magic sauce recipe
 ```bash
 git clone https://github.com/M4R7iNP/marikollan-2015
 cd marikollan-2015
@@ -27,14 +27,15 @@ In order to push you changes to the repo you will need to fork this repo and add
 To get some dummy content, do this:
 ```bash
 cd public
-wget http://mlan2015.m4r7.in/marikollan_pages_2014.tar.gz
+wget http://mlan2015.m4r7.in/files/marikollan_pages_2014.tar.gz
 tar xf marikollan_pages_2014.tar.gz
 rm marikollan_pages_2014.tar.gz
 ```
 Note that this is old content from marikollan.no 2014.
 
 # TODO
-* Do something with the design
+* Do something fun with the design
 * ~~Load pages async with `jQuery.ajax`~~
 * Maybe move all bower modules to `public/bower_componenets`. (Right now bootstrap.js are not copied to public/js/lib)
 * Maybe find a new CMS that writes to e.g. PostgreSQL and fetch pages from there.
+* Maybe implement a 'X-Revision'-header that refreshes on each server side deploy so that the client can reload to get new css

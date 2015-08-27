@@ -17,7 +17,7 @@ h1, h2, h3, h4, h5, h6 {
     background: #fff;
 
     #content {
-        padding-top: 15px;
+        margin-top: 15px;
         padding-bottom: 30px;
         position: relative;
 
@@ -25,17 +25,33 @@ h1, h2, h3, h4, h5, h6 {
             margin-top: 15px;
         }
     }
+
+    .countdown-container {
+        margin-top: 20px;
+    }
 }
 
-#sponsors img {
-    max-width: 200px !important;
-}
-#sponsorer > a {
-    display: block;
-    margin-bottom: 14px;
-    max-width: 230px;
+#sponsors {
+    img {
+        max-width: 200px !important;
+    }
+
+    > a {
+        display: block;
+        margin-bottom: 14px;
+        max-width: 230px;
+    }
+
+    @media screen and (max-width: @screen-xs-max) {
+        h3 {
+            border-top: 4px solid #4a4a4a;
+            padding-top: 15px;
+            margin-top: 0;
+        }
+    }
 }
 
 body.ajax-pending #content {
     opacity: .9;
 }
+

@@ -38,6 +38,7 @@ nunjucksEnv.addFilter('asset_url', function(path) {
 nunjucksEnv.addFilter('nl2br', function(str) {
     return str.replace(/(\n\r|\r\n|\r|\n)/g, '<br/>');
 });
+nunjucksEnv.addFilter('log', console.log);
 
 // controllers
 var pagesController = require('./controllers/pages');
@@ -49,6 +50,7 @@ if (!app.production) {
     app.use('/js/lib/', express.static(__dirname + '/public/js/lib'));
     app.use('/css/', express.static(__dirname + '/public/css'));
     app.use('/fonts/', express.static(__dirname + '/public/fonts'));
+    app.use('/files/', express.static(__dirname + '/public/files'));
     app.get('/favicon.png', express.static(__dirname + '/public'));
     app.use('/pages', pagesController.pagesHandler);
 }

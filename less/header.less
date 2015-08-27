@@ -1,13 +1,18 @@
 .header-container {
     background: rgba(0, 116, 217, 0.6);
     height: 120px;
+    overflow: hidden;
+
+    @media screen and (max-width: 767px) {
+        height: initial;
+    }
 
     #logo {
-        display: block;
+        display: inline-block;
         color: #fff;
         text-decoration: none;
-        height: 80px;
         margin-top: 25px;
+        max-height: 95px;
 
         .logo-title {
             font-family: 'Stardos Stencil', cursive;
@@ -15,7 +20,6 @@
             font-weight: bold;
             text-transform: uppercase;
             text-shadow:-2px 0px 0px #222;
-            line-height: 98px;
             overflow: hidden;
             display: inline-block;
 
@@ -28,11 +32,17 @@
             .capital {
                 font-size: 1.4em;
             }
+
+            @media screen and (max-width: 767px) {
+                font-size: 7vw;
+            }
         }
 
         img {
             vertical-align: top;
+            @media screen and (max-width: 479px) {
+                display: none;
+            }
         }
     }
 }
-
