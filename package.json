@@ -26,6 +26,7 @@
     "gulp-live-server": "git+https://github.com/M4R7iNP/gulp-live-server.git",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.2.0",
+    "jsdom": "^6.5.1",
     "less-plugin-autoprefix": "^1.4.2",
     "lews": "^1.0.0",
     "main-bower-files": "^2.9.0",
