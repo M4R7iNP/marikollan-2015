@@ -13,7 +13,8 @@ module.exports.pagesHandler = function (req, res, next) {
     var fsPath = Path.join('./public/pages', req.path);
     if (fsPath.substr(-1) == '/')
         fsPath += 'index.html';
-    else if (fsPath.substr(-5) != '.html')
+
+    if (!Path.extname(fsPath))
         fsPath += '.html';
 
     Fs.stat(fsPath, function(err, stat) {

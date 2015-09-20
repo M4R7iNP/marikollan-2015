@@ -9,6 +9,7 @@ require(['jquery'], function($) {
         $(document).on('click', 'a[href^="/"]:not([data-toggle])', Marikollan.clickHandler);
         $('a[href^="http"]').attr('target', '_blank');
 
+        Marikollan.getAvailableTickets();
         Marikollan.initFacebook();
 
         if (location.pathname == '/')
@@ -164,6 +165,21 @@ require(['jquery'], function($) {
         }
         updateCountdown();
         countdownInterval = setInterval(updateCountdown, 1000);
+    };
+
+    Marikollan.getAvailableTickets = function() {
+        $.get(
+            '/tickets.txt',
+            function(txt, b, c) {
+                $('#tickets')
+                .empty()
+                .append([
+                    document.createTextNode('Det er '),
+                    $('<span>').addClass('count').text(txt),
+                    document.createTextNode(' ledige billetter')
+                ]);
+            }
+        );
     };
 
     $(Marikollan.init);
