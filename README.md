@@ -21,7 +21,7 @@ gulp bower
 gulp dev
 ```
 * `npm install` and `bower install` will download all dependencies.
-* `gulp bower` will move client side dependecies to public directory.
+* `gulp bower` will move client side dependencies to public directory.
 * `gulp dev` will start the web server, watch the less files and compile them when written.
 
 In order to push you changes to the repo you will need to fork this repo and send a pull request.
