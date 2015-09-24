@@ -11,7 +11,11 @@ function fetchGeekeventsPage(cb) {
     var req = https.request(
         {
             hostname: 'www.geekevents.org',
-            path: '/marikollan15/shop/'
+            path: '/marikollan15/shop/',
+            headers: {
+                'User-Agent': 'marikollan-bot/1.0 (+http://marikollan.no/bot.html)',
+                'Accept': 'text/html'
+            }
         },
         function(res) {
             if (res.statusCode !== 200)
