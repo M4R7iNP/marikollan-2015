@@ -36,8 +36,8 @@ rm marikollan_pages_2014.tar.gz
 Note that this is old content from marikollan.no 2014 or 2012. Pretty outdated.
 
 # TODO
-[ ] Do something fun with the design
-[x] Load pages async with `jQuery.ajax`
-[ ] Maybe move all bower modules to `public/bower_componenets`. (Right now bootstrap.js are not copied to public/js/lib)
-[ ] Maybe find a new CMS that writes to e.g. PostgreSQL and fetch pages from there.
-[ ] Maybe implement a 'X-Revision'-header that refreshes on each server side deploy so that the client can reload to get new css
+- [ ] Do something fun with the design
+- [x] Load pages async with `jQuery.ajax`
+- [ ] Maybe move all bower modules to `public/bower_componenets`. (Right now bootstrap.js are not copied to public/js/lib)
+- [ ] Maybe find a new CMS that writes to e.g. PostgreSQL and fetch pages from there.
+- [ ] Maybe implement a 'X-Revision'-header that refreshes on each server side deploy so that the client can reload to get new css
