@@ -7,7 +7,6 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     mainBowerFiles = require('main-bower-files'),
     Autoprefixer = require('less-plugin-autoprefix'),
-    Lews = require('lews'),
     Gls = require('gulp-live-server');
 
 gulp.task('clean-css', function (cb) {
@@ -42,15 +41,7 @@ gulp.task('dev', function(){
     var server = new Gls(['index.js', '--es6_staging'], {noColor: true}, false);
     server.start();
 
-    var lews = new Lews('./less', './public/css', {
-        debug: 1,
-        lessPlugins: [
-            new Autoprefixer()
-        ]
-    });
-    //lews.watch();
-    //lews.createSocket('./lews.sock');
-    gulp.watch(['less/**/*.less'], lews.gulpWatchCb.bind(lews));
+    gulp.watch(['less/**/*.less'], ['less']);
     gulp.watch(['index.js', 'lib/*.js', 'controllers/*.js', 'models/*.js'], server.start);
     gulp.watch(['public/css/*.css', 'view/**/*.html'], server.notify);
 });
