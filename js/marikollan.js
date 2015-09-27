@@ -148,23 +148,23 @@ require(['jquery'], function($) {
                 return;
             }
 
-            var weeks   = Math.floor(timeDiff/60/60/24/7),
-                days    = Math.floor(timeDiff/60/60/24 - weeks*7),
-                hours   = Math.floor(timeDiff/60/60 - weeks*7*24 - days*24),
-                minutes = Math.floor(timeDiff/60 - weeks*7*24*60 - days*24*60 - hours*60);
-                seconds = Math.floor(timeDiff - weeks*7*24*60*60 - days*24*60*60 - hours*60*60 - minutes*60);
+            var d = {};
+            d.weeks   = Math.floor(timeDiff/60/60/24/7);
+            d.days    = Math.floor(timeDiff/60/60/24 - d.weeks*7);
+            d.hours   = Math.floor(timeDiff/60/60 - d.weeks*7*24 - d.days*24);
+            d.minutes = Math.floor(timeDiff/60 - d.weeks*7*24*60 - d.days*24*60 - d.hours*60);
+            d.seconds = Math.floor(timeDiff - d.weeks*7*24*60*60 - d.days*24*60*60 - d.hours*60*60 - d.minutes*60);
 
-            countdownElm.querySelector('.weeks').textContent = weeks;
-            countdownElm.querySelector('.days').textContent = days;
-            countdownElm.querySelector('.hours').textContent = hours;
-            countdownElm.querySelector('.minutes').textContent = minutes;
-            countdownElm.querySelector('.seconds').textContent = seconds;
+            var units = ['weeks', 'days', 'hours', 'minutes', 'seconds'];
+            for (var i in units) {
+                var unit = units[i];
 
-            countdownElm.querySelector('.weeks-plural').classList[weeks == 1 ? 'add' : 'remove']('hidden');
-            countdownElm.querySelector('.days-plural').classList[days == 1 ? 'add' : 'remove']('hidden');
-            countdownElm.querySelector('.hours-plural').classList[hours == 1 ? 'add' : 'remove']('hidden');
-            countdownElm.querySelector('.minutes-plural').classList[minutes == 1 ? 'add' : 'remove']('hidden');
-            countdownElm.querySelector('.seconds-plural').classList[seconds == 1 ? 'add' : 'remove']('hidden');
+                if (Number.isNaN(d[unit]))
+                    return;
+
+                countdownElm.querySelector('.' + unit).textContent = d[unit];
+                countdownElm.querySelector('.' + unit + '-plural').classList[d[unit] === 1 ? 'add' : 'remove']('hidden');
+            }
         }
         updateCountdown();
         countdownInterval = setInterval(updateCountdown, 1000);
