@@ -4,10 +4,13 @@ require(['jquery'], function($) {
     var defaultTitle = 'Marikollan 2015';
 
     Marikollan.init = function($) {
-        // TODO: Put much magic in here
-
         $(document).on('click', 'a[href^="/"]:not([data-toggle])', Marikollan.clickHandler);
         $('a[href^="http"]').attr('target', '_blank');
+
+        $(window).bind('popstate', function(e) {
+            var loc = history.location || document.location;
+            Marikollan.ajax(loc.pathname + loc.search, {noPush: true});
+        });
 
         Marikollan.getAvailableTickets();
         Marikollan.initFacebook();
