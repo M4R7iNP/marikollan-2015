@@ -16,13 +16,13 @@ gulp.task('clean-js', function (cb) {
     return del('public/js/*', cb);
 });
 
-gulp.task('less', ['clean-css'], function () {
+gulp.task('less', function() {
     gulp.src('./less/marikollan.less')
     .pipe(less({
         compress: true,
         plugins: [new Autoprefixer()]
     }))
-    .pipe(header('/* Copyright © ' + (new Date()).getFullYear() + ' Martin Pedersen */\n'))
+    .pipe(header('/* Visit https://github.com/M4R7iNP/marikollan-2015 for license and source code */\n'))
     .pipe(gulp.dest('./public/css'))
     .pipe(gzip())
     .pipe(gulp.dest('./public/css'));
@@ -31,7 +31,7 @@ gulp.task('less', ['clean-css'], function () {
 gulp.task('js', ['clean-js'], function () {
     gulp.src('./js/*.js')
     .pipe(uglify())
-    .pipe(header('/* Copyright © ' + (new Date()).getFullYear() + ' Martin Pedersen */\n'))
+    .pipe(header('/* Visit https://github.com/M4R7iNP/marikollan-2015 for license and source code */\n'))
     .pipe(gulp.dest('./public/js'))
     .pipe(gzip())
     .pipe(gulp.dest('./public/js'));
