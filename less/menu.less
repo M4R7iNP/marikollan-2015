@@ -17,32 +17,34 @@
                 }
             }
 
-            .submenu {
-                display: none;
-                padding: 5px 15px;
-                z-index: 10;
-                position: absolute;
-                background-color: rgba(0, 0, 0, .7);
-                min-width: 160px;
+            @media screen and (min-width: 768px) {
+                .submenu {
+                    display: none;
+                    padding: 5px 15px;
+                    z-index: 10;
+                    position: absolute;
+                    background-color: rgba(0, 0, 0, .7);
+                    min-width: 160px;
 
-                a {
-                    display: block;
-                    color: #fafafa;
-                    padding-bottom: 4px;
+                    a {
+                        display: block;
+                        color: #fafafa;
+                        padding-bottom: 4px;
+
+                        &:hover {
+                            color: #ffffff;
+                        }
+                    }
 
                     &:hover {
-                        color: #ffffff;
+                        display: block;
                     }
                 }
 
                 &:hover {
-                    display: block;
-                }
-            }
-
-            &:hover {
-                .submenu {
-                    display: block;
+                    .submenu {
+                        display: block;
+                    }
                 }
             }
         }
@@ -66,5 +68,30 @@
         }
     }
 
+    @media screen and (max-width: 768px) {
+        .navbar-collapse {
+            position: absolute;
+            z-index: 100;
+            width: 100%;
+            background: rgba(22, 22, 22, 0.8);
+            right: 0;
+            max-width: 320px;
+            margin: 0;
+
+            li a {
+                padding: 5px 25px;
+                display: block;
+                color: #fff;
+            }
+
+            .submenu {
+                display: block !important;
+
+                > a {
+                    padding: 2px 0 2px 45px;
+                }
+            }
+        }
+    }
 }
 
