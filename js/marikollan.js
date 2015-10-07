@@ -159,7 +159,7 @@ require(['jquery'], function($) {
             for (var i in units) {
                 var unit = units[i];
 
-                if (Number.isNaN(d[unit]))
+                if (isNaN(d[unit]))
                     return;
 
                 countdownElm.querySelector('.' + unit).textContent = d[unit];
