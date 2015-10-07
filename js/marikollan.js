@@ -1,7 +1,8 @@
 var Marikollan = Marikollan || {};
 
 require(['jquery'], function($) {
-    var defaultTitle = 'Marikollan 2015';
+    var defaultTitle = 'Marikollan 2015',
+        marikollanDate = new Date(1446220800000);
 
     Marikollan.init = function($) {
         $(document).on('click', 'a[href^="/"]:not([data-toggle])', Marikollan.clickHandler);
@@ -131,8 +132,7 @@ require(['jquery'], function($) {
 
     var countdownInterval;
     Marikollan.timeCountdown = function() {
-        var countdownElm = document.getElementById('time-countdown'),
-            marikollanTime = new Date('2015-10-30T18:00:00+0200');
+        var countdownElm = document.getElementById('time-countdown');
 
         document.querySelector('.countdown-container').classList.remove('hide');
 
@@ -141,10 +141,11 @@ require(['jquery'], function($) {
                 clearInterval(interval);
 
             var now = new Date(),
-                timeDiff = (marikollanTime.getTime() - now.getTime())/1000 - (now.getTimezoneOffset() - marikollanTime.getTimezoneOffset())*60;
+                timeDiff = (marikollanDate.getTime() - now.getTime())/1000 - (now.getTimezoneOffset() - marikollanDate.getTimezoneOffset())*60;
 
             if (timeDiff < 0) {
                 countdownElm.textContent = 'Marikollan! <3';
+                countdownInterval = clearInterval(countdownInterval);
                 return;
             }
 
@@ -158,9 +159,6 @@ require(['jquery'], function($) {
             var units = ['weeks', 'days', 'hours', 'minutes', 'seconds'];
             for (var i in units) {
                 var unit = units[i];
-
-                if (isNaN(d[unit]))
-                    return;
 
                 countdownElm.querySelector('.' + unit).textContent = d[unit];
                 countdownElm.querySelector('.' + unit + '-plural').classList[d[unit] === 1 ? 'add' : 'remove']('hidden');
