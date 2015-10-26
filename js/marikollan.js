@@ -92,7 +92,7 @@ require(['jquery'], function($) {
                 }
 
                 //Load social plugins
-                if ($('meta[name="facebookComments"]', $content).length) {
+                if ($('meta[name="facebookComments"], meta[name="fbComments"]', $content).length) {
                     require(['facebook'], function(FB) {
                         Marikollan.appendCommentSection(url);
                         FB.XFBML.parse();
