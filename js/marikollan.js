@@ -2,7 +2,7 @@ var Marikollan = Marikollan || {};
 
 require(['jquery'], function($) {
     var defaultTitle = 'Marikollan 2015',
-        marikollanDate = new Date(1446220800000);
+        marikollanDate = new Date(1446222600000);
 
     Marikollan.init = function($) {
         $(document).on('click', 'a[href^="/"]:not([data-toggle])', Marikollan.clickHandler);
