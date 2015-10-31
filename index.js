@@ -39,6 +39,7 @@ nunjucksEnv.addFilter('nl2br', function(str) {
     return str.replace(/(\n\r|\r\n|\r|\n)/g, '<br/>');
 });
 nunjucksEnv.addFilter('log', console.log);
+nunjucksEnv.addGlobal('Date', Date);
 
 // controllers
 var pagesController = require('./controllers/pages');

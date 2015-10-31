@@ -133,6 +133,8 @@ require(['jquery'], function($) {
     var countdownInterval;
     Marikollan.timeCountdown = function() {
         var countdownElm = document.getElementById('time-countdown');
+        if (!countdownElm)
+            return;
 
         document.querySelector('.countdown-container').classList.remove('hide');
 

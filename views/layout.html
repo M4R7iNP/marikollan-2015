@@ -115,6 +115,7 @@
         <div class="container content-container">
             <div class="row">
                 <div class="col-sm-9">
+                    {% if Date.now() < 1446222600000 %}
                     <div class="countdown-container hide">
                         <div class="alert alert-info fade in">
                             <h4 id="time-countdown">
@@ -128,6 +129,7 @@
                             </h4>
                         </div>
                     </div>
+                    {% endif %}
                     <div id="content">
 {{content | safe}}
                     </div>
