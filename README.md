@@ -1,6 +1,6 @@
 This is the git repo for the Marikollan 2015 website.
 
-http://beta.marikollan.no/
+http://2015.marikollan.no/
 
 # How to get started
 ## Prerequisites
@@ -29,7 +29,7 @@ In order to push you changes to the repo you will need to fork this repo and sen
 To get some dummy content, do this:
 ```bash
 cd public
-wget http://beta.marikollan.no/files/marikollan_pages_2014.tar.gz
+wget http://2015.marikollan.no/files/marikollan_pages_2014.tar.gz
 tar xf marikollan_pages_2014.tar.gz
 rm marikollan_pages_2014.tar.gz
 ```
