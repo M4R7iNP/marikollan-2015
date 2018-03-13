@@ -1,81 +1,40 @@
 /* jshint esnext:true */
-var jsdom = require('jsdom'),
-    https = require('https'),
-    async = require('async'),
-    fs    = require('fs');
+const fetch = require('node-fetch');
+const util = require('util');
+const fs = require('fs');
+const writeFile = util.promisify(fs.writeFile);
 
-const TICKETS_QUERY_SELECTOR = '#content > table > tbody > tr.productline > td.ticket_description > div.availability > span';
 const FILE_DEST  = process.argv[2];
 
-function fetchGeekeventsPage(cb) {
-    var req = https.request(
-        {
-            hostname: 'www.geekevents.org',
-            path: '/marikollan15/shop/',
-            headers: {
-                'User-Agent': 'marikollan-bot/1.0 (+http://marikollan.no/bot.html)',
-                'Accept': 'text/html'
-            }
-        },
-        function(res) {
-            if (res.statusCode !== 200)
-                return cb(new Error('Got HTTP status code ' + res.statusCode));
-
-            var body = '';
-            res.setEncoding('utf8');
-            res.on('data', function(chunk) { body += chunk; });
-            res.on('end', function() {
-                cb(undefined, body);
-            });
+async function getAvailableTickets() {
+    const response = await fetch('https://www.geekevents.org/shop/api/products/185/', {
+        headers: {
+            'User-Agent': 'marikollan-bot/1.0 (+http://marikollan.no/bot.html)',
+            Accept: 'text/html',
+            Referer: 'https://www.geekevents.org/mklan2017/shop/',
         }
-    );
+    });
 
-    req.on('error', cb);
-    req.end();
+    const data = await response.json();
+
+    return data.data[0].realAvailableCount;
 }
 
-function parseGeekeventsPage(html, cb) {
-    try {
-        jsdom.env(html, function(err, window) {
-            if (err)
-                return cb(err);
+async function outputToDestination(availableTickets) {
+    let output = availableTickets.toString();
 
-            var document = window.document;
-
-            var availableTicketsElm = document.querySelector(TICKETS_QUERY_SELECTOR);
-            if (!availableTicketsElm)
-                return cb(new Error('Did not find available tickets element'));
-
-            cb(undefined, availableTicketsElm.textContent);
-        });
-    } catch (err) {
-        cb(err);
-    }
-}
-
-function outputToDestination(availableTickets, cb) {
     if (FILE_DEST) {
-        fs.writeFile(
-            FILE_DEST,
-            availableTickets,
-            cb
-        );
+        return writeFile(FILE_DEST, output);
     }
     else {
-        process.stdout.write(availableTickets);
+        process.stdout.write(output);
     }
 }
 
-async.waterfall(
-    [
-        fetchGeekeventsPage,
-        parseGeekeventsPage,
-        outputToDestination
-    ],
-    function(err, result) {
-        if (err)
-            console.error(err);
-
-        process.exit(err ? 1 : 0);
-    }
-);
+getAvailableTickets()
+.then(availableTickets => outputToDestination(availableTickets))
+.then(() => process.exit(0))
+.catch(err => {
+    console.error(err);
+    process.exit(1);
+})

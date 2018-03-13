@@ -28,6 +28,7 @@
     "jsdom": "^6.5.1",
     "less-plugin-autoprefix": "^1.5.1",
     "main-bower-files": "^2.9.0",
+    "node-fetch": "^1.7.3",
     "nunjucks": "^2.1.0"
   }
 }
